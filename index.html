@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Engineering portfolio of John Getley, mechanical engineer: hands-on builds, prototypes, test rigs and production parts.">
+<meta property="og:title" content="John Getley Portfolio">
+<meta property="og:description" content="Mechanical engineer: hands-on builds, prototypes, test rigs and production parts.">
+<meta property="og:image" content="https://gonjetz.github.io/img/twister-prototype.jpg">
+<title>John Getley Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; -webkit-text-size-adjust: 100%; }
+img { max-width: 100%; }
+
+/* Layout: workshop build-log. Bold condensed header, then one project per row:
+   photos on one side, a spec-sheet style write-up on the other. */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --ink: #16263a;
+  --muted: #56657a;
+  --line: #d5dbe3;
+  --navy: #1f3a5f;
+  --accent: #e2611b;       /* axle-stand orange */
+  --chip: #e7ecf2;
+  --display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1722; --surface: #172231; --ink: #e6ecf3; --muted: #9aa8ba;
+    --line: #2a3a4f; --navy: #9cc0ea; --accent: #f08a4b; --chip: #213045;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1722; --surface: #172231; --ink: #e6ecf3; --muted: #9aa8ba;
+  --line: #2a3a4f; --navy: #9cc0ea; --accent: #f08a4b; --chip: #213045;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 400 1rem/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1120px; margin: 0 auto; }
+a { color: var(--navy); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Header */
+header { padding-block: 56px 40px; border-bottom: 2px solid var(--ink); display: grid; gap: 24px; }
+.eyebrow { font: 500 0.8rem/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 clamp(3rem, 9vw, 6.5rem)/0.9 var(--display); letter-spacing: 0.01em; text-transform: uppercase; margin: 8px 0 0; color: var(--navy); }
+.role { font: 500 clamp(1.2rem, 2.6vw, 1.6rem)/1.2 var(--display); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 8px 0 0; }
+.intro { max-width: 64ch; font-size: 1.08rem; margin: 0; text-wrap: pretty; }
+.contact { display: flex; flex-wrap: wrap; gap: 8px 24px; font: 400 0.9rem/1.4 var(--mono); color: var(--muted); }
+.contact span, .contact a { white-space: nowrap; }
+.copy { font: inherit; color: var(--navy); background: none; border: 1px solid var(--line); border-radius: 4px; padding: 0 8px; cursor: pointer; margin-left: 6px; }
+
+/* Process strip */
+.process { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin-block: 32px 8px; border: 1px solid var(--line); background: var(--surface); }
+.process div { padding: 14px 16px; border-right: 1px solid var(--line); min-width: 0; }
+.process div:last-child { border-right: 0; }
+.process b { display: block; font: 700 1.15rem/1.1 var(--display); text-transform: uppercase; letter-spacing: 0.04em; }
+.process small { color: var(--muted); font-size: 0.82rem; line-height: 1.4; display: block; margin-top: 4px; }
+.process i { font: 500 0.72rem/1 var(--mono); font-style: normal; color: var(--accent); }
+.process-note { color: var(--muted); font-size: 0.85rem; margin: 0 0 24px; }
+
+/* Projects */
+.project { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px 40px; padding-block: 48px; border-top: 1px solid var(--line); align-items: start; }
+.project:nth-of-type(even) .photos { order: 2; }
+.photos { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+.photos.one { grid-template-columns: 1fr; }
+.photos button { padding: 0; border: 0; background: var(--chip); cursor: zoom-in; display: block; overflow: hidden; border-radius: 3px; }
+.photos img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform .3s ease; }
+.photos.one img { aspect-ratio: 4 / 3; }
+.photos .wide { grid-column: 1 / -1; }
+.photos .wide img { aspect-ratio: 2 / 1; }
+.photos button:hover img { transform: scale(1.03); }
+figcaption { grid-column: 1 / -1; font: 400 0.78rem/1.4 var(--mono); color: var(--muted); }
+
+.tag { display: inline-block; font: 500 0.72rem/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 8px; border: 1px solid currentColor; color: var(--accent); }
+h2 { font: 700 clamp(1.9rem, 4vw, 2.6rem)/1 var(--display); text-transform: uppercase; letter-spacing: 0.01em; margin: 14px 0 12px; text-wrap: balance; color: var(--ink); }
+.text p { margin: 0 0 14px; max-width: 62ch; }
+.text h3 { font: 500 0.75rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 20px 0 8px; }
+.text ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); background: var(--surface); margin: 4px 0 6px; }
+.stats div { padding: 12px 14px; border-right: 1px solid var(--line); min-width: 0; }
+.stats div:last-child { border-right: 0; }
+.stats b { display: block; font: 700 2.2rem/1 var(--display); color: var(--navy); font-variant-numeric: tabular-nums; }
+.stats div:first-child b { color: var(--muted); }
+.stats span { display: block; font-size: 0.8rem; line-height: 1.35; color: var(--muted); margin-top: 4px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+.chips span { font: 400 0.78rem/1 var(--mono); background: var(--chip); padding: 7px 9px; border-radius: 3px; }
+.link-note { margin-top: 18px; padding: 12px 14px; background: var(--surface); border-left: 3px solid var(--accent); font-size: 0.93rem; }
+.link-note b { font-weight: 600; }
+
+footer { border-top: 2px solid var(--ink); padding-block: 32px 56px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 0.9rem; }
+
+/* Lightbox */
+dialog { border: 0; padding: 0; background: transparent; max-width: min(94vw, 1100px); max-height: 92vh; }
+dialog::backdrop { background: rgba(8, 14, 22, 0.85); }
+dialog img { display: block; max-width: 100%; max-height: 86vh; margin: 0 auto; }
+dialog p { color: #e6ecf3; font: 400 0.85rem/1.4 var(--mono); text-align: center; margin: 10px 0 0; }
+dialog button { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.6); color: #fff; border: 0; font: 500 0.85rem var(--mono); padding: 8px 12px; cursor: pointer; }
+
+@media (max-width: 820px) {
+  .project { grid-template-columns: minmax(0, 1fr); padding-block: 36px; }
+  .project:nth-of-type(even) .photos { order: 0; }
+  .process { grid-template-columns: minmax(0, 1fr); }
+  .process div { border-right: 0; border-bottom: 1px solid var(--line); }
+  .process div:last-child { border-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .photos img { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Engineering portfolio · 2026</div>
+      <h1>John Getley</h1>
+      <p class="role">Mechanical Engineer · Animatronics</p>
+    </div>
+    <p class="intro">I like building things and seeing them work. These are projects I've designed, made and tested myself, from 3D-printed enclosures and test rigs to stainless steel production parts, and some work done on my own time. Each one shows the same approach I'd bring to animatronics: prototype quickly, test properly, and design for the people who have to maintain it.</p>
+    <div class="contact">
+      <span>Poole, Dorset · willing to relocate</span>
+      <span>johndgetley@gmail.com<button class="copy" type="button" id="copy-email" data-copy="johndgetley@gmail.com">Copy</button></span>
+      <a href="https://www.linkedin.com/in/jgetley/" target="_blank" rel="noopener">linkedin.com/in/jgetley</a>
+    </div>
+  </header>
+
+  <div class="process" aria-label="How I work">
+    <div><i>1</i><b>Design</b><small>CAD in Creo &amp; SolidWorks</small></div>
+    <div><i>2</i><b>Print</b><small>Fast 3D-printed prototypes to check fit</small></div>
+    <div><i>3</i><b>Test</b><small>Rigs, thermal, vibration &amp; load tests</small></div>
+    <div><i>4</i><b>Refine</b><small>Fix what testing finds</small></div>
+    <div><i>5</i><b>Produce</b><small>Drawings &amp; manuals for manufacture and service</small></div>
+  </div>
+  <p class="process-note">The Ticket Twister below went through every one of these steps.</p>
+
+  <main>
+    <section class="project">
+      <div class="photos">
+        <button type="button" class="wide" data-cap="3D-printed prototype of the Ticket Twister (left) next to the camera unit"><img src="img/twister-prototype.jpg" alt="White 3D-printed prototype of the ticket guide with two upright fins on a printed base, beside a small white camera box"></button>
+        <button type="button" data-cap="Test bench: ticket roll, printer, bench power supply and camera recording every ticket"><img src="img/test-bench.jpg" alt="Test bench with a large paper ticket roll on a pole, a ticket printer on a mesh tower and a bench power supply"></button>
+        <button type="button" data-cap="Fitted inside the kiosk with a brush strip"><img src="img/twister-fitted.jpg" alt="Folded stainless steel guide with a black brush strip fitted inside a ticket kiosk among cables"></button>
+        <button type="button" data-cap="Test 1, baseline without the Ticket Twister: 59 jams in about 1,500 tickets. Failed."><img src="img/twister-test-baseline.jpg" alt="Test report for the baseline run marked failed, with print rate, jam probability and stuck event charts plus camera photos of hard jams"></button>
+        <button type="button" data-cap="Test 2, with the 3D-printed Ticket Twister: 1 jam in 1,507 tickets. Passed."><img src="img/twister-test-result.jpg" alt="Test report for the run with the Ticket Twister marked passed, showing a steady print rate and a single stuck event"></button>
+        <figcaption>Prototype, test, evidence, then sheet metal</figcaption>
+      </div>
+      <div class="text">
+        <span class="tag">Arrive / Flowbird · Work</span>
+        <h2>Ticket Twister</h2>
+        <p>Tickets were jamming as they came out of the printer in a retail ticket kiosk. I designed a guide that turns each ticket cleanly into the collection tray, proved it with a 3D-printed prototype on a test rig, and used the test results to justify making it as a stainless steel sheet-metal part.</p>
+        <div class="stats">
+          <div><b>59</b><span>jams without the twister</span></div>
+          <div><b>1</b><span>jam with the printed prototype</span></div>
+          <div><b>~1,500</b><span>tickets per test run</span></div>
+        </div>
+        <h3>What I did</h3>
+        <ul>
+          <li>Built a test bench with a camera that recorded every ticket, so each jam was logged and photographed automatically.</li>
+          <li>Ran a baseline test without the twister: 59 jams across three batches of 500 tickets, far over the 6-jam pass limit.</li>
+          <li>3D-printed the Ticket Twister and repeated the test: just 1 jam in 1,507 tickets, a clear pass.</li>
+          <li>Used that evidence to move from the printed prototype to a manufactured part, and drew it up in stainless steel 304 sheet metal with a flat pattern, bend angles, tolerances and a burr-free ticket contact surface, ready for supplier quotes.</li>
+        </ul>
+        <div class="chips"><span>Test design</span><span>Data analysis</span><span>3D printing</span><span>Sheet metal</span><span>Stainless 304</span><span>Drawings &amp; tolerancing</span></div>
+        <p class="link-note"><b>For animatronics:</b> prototype cheaply, prove it with data, then commit to production material. The same approach fits any mechanism that has to move reliably thousands of times a day.</p>
+      </div>
+    </section>
+
+    <section class="project">
+      <div class="photos">
+        <button type="button" data-cap="Ticket Twister Cam: printed enclosure with embossed label"><img src="img/cam-front.jpg" alt="Hand holding a white 3D-printed camera enclosure with a lens in the centre and Ticket Twister Cam embossed on the front"></button>
+        <button type="button" data-cap="Inside: camera board on standoffs, ribbon cable to the main board"><img src="img/cam-open.jpg" alt="Open grey printed enclosure showing a circuit board inside, with a camera module on standoffs mounted to the white lid"></button>
+        <figcaption>Custom housing designed around off-the-shelf electronics</figcaption>
+      </div>
+      <div class="text">
+        <span class="tag">Arrive / Flowbird · Work</span>
+        <h2>AI Camera Housing</h2>
+        <p>A compact enclosure for an AI camera that watches tickets coming out of the printer on the test bench, so the team can see how each ticket behaves as it leaves the machine.</p>
+        <h3>What I did</h3>
+        <ul>
+          <li>Designed a two-part enclosure around the camera module and main board, with threaded inserts for a lid that can be removed again and again.</li>
+          <li>Mounted the camera on adjustable standoffs so the lens sits flush with the front face.</li>
+          <li>Routed the ribbon cable inside the case and embossed the label straight into the print.</li>
+        </ul>
+        <div class="chips"><span>Enclosure design</span><span>3D printing</span><span>Electronics packaging</span><span>Heat-set inserts</span></div>
+        <p class="link-note"><b>For animatronics:</b> cameras, sensors and boards have to be packed into tight spaces inside a figure and still be easy to get at for servicing.</p>
+      </div>
+    </section>
+
+    <section class="project">
+      <div class="photos">
+        <button type="button" data-cap="Arduino controller in a printed case with brass inserts"><img src="img/fan-controller.jpg" alt="Hand holding a grey 3D-printed case containing an Arduino board with resistors and wiring, with brass threaded inserts in each corner"></button>
+        <button type="button" data-cap="Relay on stripboard in its own printed box, mounted in the kiosk"><img src="img/relay-enclosure.jpg" alt="Small white printed box holding a relay soldered to stripboard, wired to the Arduino case mounted on a textured steel panel"></button>
+        <figcaption>Microcontroller and relay switching a cooling fan</figcaption>
+      </div>
+      <div class="text">
+        <span class="tag">Arrive / Flowbird · Work</span>
+        <h2>Fan Controller</h2>
+        <p>A small control system that switches a cooling fan inside a kiosk. It uses an Arduino microcontroller and a relay, each housed in its own 3D-printed enclosure and mounted inside the cabinet.</p>
+        <h3>What I did</h3>
+        <ul>
+          <li>Wired the Arduino and the sensing circuit, and soldered the relay onto stripboard.</li>
+          <li>Designed and printed both enclosures, using brass heat-set inserts so they can be opened and closed many times.</li>
+          <li>Mounted the units in the cabinet with tidy cable entry and strain relief.</li>
+        </ul>
+        <div class="chips"><span>Arduino</span><span>Relays</span><span>Soldering</span><span>Enclosure design</span><span>Thermal management</span></div>
+        <p class="link-note"><b>For animatronics:</b> microcontrollers driving relays and actuators are the core of most figure control, and keeping electronics cool inside a closed shell is a constant challenge.</p>
+      </div>
+    </section>
+
+    <section class="project">
+      <div class="photos one">
+        <button type="button" data-cap="Printed retaining clip fitted to the main PCB"><img src="img/pcb-clip.jpg" alt="Orange circuit board on a black mounting gasket, with a light grey 3D-printed clip holding a black cylindrical component at the bottom edge"></button>
+      </div>
+      <div class="text">
+        <span class="tag">Arrive / Flowbird · Work</span>
+        <h2>PCB Retaining Clip</h2>
+        <p>A small printed clip that holds a component securely on a production circuit board, so it can't work loose from vibration or handling.</p>
+        <h3>What I did</h3>
+        <ul>
+          <li>Measured the board and component, then designed a clip that fits the existing layout without changing the PCB.</li>
+          <li>Tested the fit on the real board and refined it over a few iterations.</li>
+        </ul>
+        <div class="chips"><span>Design for fit</span><span>3D printing</span><span>Vibration</span></div>
+        <p class="link-note"><b>For animatronics:</b> figures shake, move and run for hours, so every connector and component has to stay put.</p>
+      </div>
+    </section>
+
+    <section class="project">
+      <div class="photos one">
+        <button type="button" data-cap="Prototype on site: generator, pulley and LED test circuit, 2.43 V on the meter"><img src="img/micro-power.jpg" alt="Generator with a pulley on an aluminium bracket strapped to a rusty marina pile, with a small circuit board lighting an LED and a multimeter reading 2.43 volts"></button>
+      </div>
+      <div class="text">
+        <span class="tag">Bournemouth University · Dissertation</span>
+        <h2>Tidal Micro Power Generator</h2>
+        <p>My final-year dissertation, graded 73%: "Tidal Elevation for Micro Power Generation". I designed, modelled and built a prototype that turns the rise and fall of the tide into small amounts of electrical power for off-grid use.</p>
+        <h3>What I did</h3>
+        <ul>
+          <li>Designed the mechanism to convert vertical tidal movement into rotation, driving a generator through a pulley.</li>
+          <li>Built the prototype on an aluminium bracket strapped to a marina pile, with a simple LED load circuit.</li>
+          <li>Tested it in place and measured the output with a multimeter (2.43 V in the photo).</li>
+        </ul>
+        <div class="chips"><span>Mechanism design</span><span>Prototyping</span><span>Field testing</span><span>Hydrodynamics</span></div>
+        <p class="link-note"><b>For animatronics:</b> turning one kind of motion into another, and getting a mechanism working outdoors in real conditions.</p>
+      </div>
+    </section>
+
+    <section class="project">
+      <div class="photos">
+        <button type="button" data-cap="Front suspension strut replacement, car supported on axle stands"><img src="img/front-strut.jpg" alt="Car front suspension with the wheel removed showing the brake caliper, disc and strut, supported on orange axle stands"></button>
+        <button type="button" data-cap="Replacing all discs and pads on the 2006 Golf TDI"><img src="img/golf-brakes.jpg" alt="Grey Volkswagen Golf on a driveway with a rear wheel removed, new brake disc and pad boxes, socket sets and axle stands on the ground"></button>
+        <figcaption>Done on the driveway with my own tools</figcaption>
+      </div>
+      <div class="text">
+        <span class="tag">Personal project</span>
+        <h2>Golf TDI Strut &amp; Brakes</h2>
+        <p>I keep my own 2006 VW Golf TDI running. I've replaced a front suspension strut and changed all the brake discs and pads myself. These are hands-on jobs that mean working safely with stored spring energy, seized fixings and safety-critical parts.</p>
+        <h3>What I did</h3>
+        <ul>
+          <li>Supported the car safely on axle stands and stripped down the hub, brake caliper and strut.</li>
+          <li>Fitted the new strut and rebuilt the assembly to the correct torque settings.</li>
+          <li>Replaced the discs and pads on all four wheels.</li>
+        </ul>
+        <div class="chips"><span>Mechanical assembly</span><span>Workshop safety</span><span>Hand tools</span><span>Safety-critical parts</span></div>
+        <p class="link-note"><b>For animatronics:</b> comfortable getting my hands dirty with real mechanical assemblies, not just CAD models.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>John Getley · BSc Mechanical Engineering, First Class Honours</span>
+    <a href="https://www.linkedin.com/in/jgetley/" target="_blank" rel="noopener">Get in touch on LinkedIn</a>
+  </footer>
+</div>
+
+<dialog id="lightbox" aria-label="Enlarged photo">
+  <button type="button" id="lightbox-close">Close</button>
+  <img id="lightbox-img" alt="">
+  <p id="lightbox-cap"></p>
+</dialog>
+
+<script>
+const box = document.getElementById('lightbox');
+const boxImg = document.getElementById('lightbox-img');
+const boxCap = document.getElementById('lightbox-cap');
+document.querySelectorAll('.photos button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const img = btn.querySelector('img');
+    boxImg.src = img.src;
+    boxImg.alt = img.alt;
+    boxCap.textContent = btn.dataset.cap || '';
+    box.showModal();
+  });
+});
+document.getElementById('lightbox-close').addEventListener('click', () => box.close());
+box.addEventListener('click', e => { if (e.target === box) box.close(); });
+
+document.getElementById('copy-email').addEventListener('click', e => {
+  const btn = e.currentTarget;
+  navigator.clipboard.writeText(btn.dataset.copy)
+    .then(() => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy', 1500); })
+    .catch(() => {
+      const r = document.createRange();
+      r.selectNodeContents(btn.parentNode.firstChild.parentNode);
+      getSelection().removeAllRanges(); getSelection().addRange(r);
+    });
+});
+</script>
+</body>
+</html>
